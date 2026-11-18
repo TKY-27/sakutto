@@ -1025,16 +1025,3 @@ export function collectShadowRoots(root: ParentNode): ShadowRoot[] {
 
   return roots;
 }
-
-export function listPageBlocks(doc: Document): Element[] {
-  const blocks: Element[] = [];
-
-  for (const document of collectDocuments(doc)) {
-    blocks.push(...listTranslatableBlocks(document));
-    for (const shadow of collectShadowRoots(document)) {
-      blocks.push(...listTranslatableBlocks(shadow));
-    }
-  }
-
-  return blocks;
-}

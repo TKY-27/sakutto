@@ -23,7 +23,7 @@ beforeEach(() => {
 
 describe('ensureContentScript', () => {
   it('does not inject when the page already answers', async () => {
-    mocks.requestPageInfo.mockResolvedValue({ lang: 'en', translatableBlocks: 1 });
+    mocks.requestPageInfo.mockResolvedValue({ lang: 'en' });
 
     expect(await ensureContentScript(7)).toBe(true);
     expect(mocks.executeScript).not.toHaveBeenCalled();
@@ -36,7 +36,7 @@ describe('ensureContentScript', () => {
     mocks.requestPageInfo
       .mockResolvedValueOnce(null)
       .mockResolvedValueOnce(null)
-      .mockResolvedValueOnce({ lang: 'en', translatableBlocks: 1 });
+      .mockResolvedValueOnce({ lang: 'en' });
 
     expect(await ensureContentScript(7)).toBe(true);
     expect(mocks.executeScript).toHaveBeenCalledTimes(3);
@@ -46,7 +46,7 @@ describe('ensureContentScript', () => {
     mocks.requestPageInfo
       .mockResolvedValueOnce(null)
       .mockResolvedValueOnce(null)
-      .mockResolvedValueOnce({ lang: 'ja', translatableBlocks: 2 });
+      .mockResolvedValueOnce({ lang: 'ja' });
 
     expect(await ensureContentScript(7)).toBe(true);
     expect(mocks.executeScript).toHaveBeenCalledTimes(2);

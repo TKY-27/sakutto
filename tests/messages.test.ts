@@ -40,9 +40,10 @@ const modelStatus = {
 
 describe('message validation', () => {
   it('accepts well-formed page info and rejects other shapes', () => {
+    expect(isPageInfo({ lang: 'en' })).toBe(true);
     expect(isPageInfo({ lang: 'en', translatableBlocks: 3 })).toBe(true);
-    expect(isPageInfo({ lang: 'en', translatableBlocks: '3' })).toBe(false);
-    expect(isPageInfo({ lang: 'en' })).toBe(false);
+    expect(isPageInfo({})).toBe(false);
+    expect(isPageInfo({ lang: 3 })).toBe(false);
     expect(isPageInfo(null)).toBe(false);
     expect(isPageInfo([])).toBe(false);
   });

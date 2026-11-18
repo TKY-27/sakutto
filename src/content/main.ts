@@ -1,6 +1,5 @@
 import { browser } from 'wxt/browser';
 import { armFolderCommand } from '@/content/folder-arm-gate';
-import { listPageBlocks } from '@/dom/blocks';
 import { ComposeController, type ComposeLabels, type ComposePreferences } from '@/dom/compose';
 import { shouldHandleComposeCommand } from '@/dom/compose-field';
 import { detectDocumentLanguage } from '@/dom/detect';
@@ -329,13 +328,6 @@ function openFolderEnableWindow(): void {
   void browser.runtime.sendMessage({ type: 'folder:open-enable' }).catch(() => {
     readRuntimeLastError();
   });
-}
-
-function getPageInfo(): PageInfo {
-  return {
-    lang: document.documentElement.lang,
-    translatableBlocks: listPageBlocks(document).length,
-  };
 }
 
 export function contentMain(): void {
@@ -742,7 +734,7 @@ export function contentMain(): void {
       return;
     }
     if (isPageInfoRequest(message)) {
-      sendResponse(getPageInfo());
+      sendResponse({ lang: document.documentElement.lang } satisfies PageInfo);
       return;
     }
     if (isModelProgressMessage(message)) {

@@ -20,7 +20,6 @@ import { isRecord } from './object';
 
 export interface PageInfo {
   lang: string;
-  translatableBlocks: number;
 }
 
 export interface PageInfoRequest {
@@ -391,11 +390,7 @@ export function isQualitySampleRequest(value: unknown): value is QualitySampleRe
 }
 
 export function isPageInfo(value: unknown): value is PageInfo {
-  return (
-    isRecord(value) &&
-    typeof value.lang === 'string' &&
-    typeof value.translatableBlocks === 'number'
-  );
+  return isRecord(value) && typeof value.lang === 'string';
 }
 
 export function isEngineProbeResponse(value: unknown): value is EngineProbeResponse {
