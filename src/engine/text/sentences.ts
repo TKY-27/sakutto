@@ -75,7 +75,8 @@ function findProtectedRanges(text: string): TextRange[] {
 
   const patterns = [
     /(?:https?:\/\/|www\.)[^\s<>"'）)】」』]+/giu,
-    /[^\s<>()"']+@[^\s<>()"']+\.[a-z]{2,}/giu,
+    // Try an email once per run, even in paragraphs written without spaces.
+    /(?<=^|[\s<>()"'])[^\s<>()"']+@[^\s<>()"']+\.[a-z]{2,}/giu,
     /<\/?[A-Za-z][\w-]*\d*>/g,
   ];
 

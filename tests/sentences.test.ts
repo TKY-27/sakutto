@@ -79,6 +79,12 @@ describe('sentence splitting', () => {
     expect(parts[0]).toBe('ブラウザの中で翻訳すると、本文が端末の外に出ません。');
   });
 
+  it('protects punctuation in email addresses at the start and after a delimiter', () => {
+    const first = '山田。花子@example.jp に送ります。';
+    const second = '別の宛先は (佐藤。太郎@example.org) です。';
+    expect(splitForTranslation(first + second, { sentenceThreshold: 1 })).toEqual([first, second]);
+  });
+
   it('hard splits very long sentences at spaces', () => {
     const text = `${'word '.repeat(200)}end.`;
     const parts = splitForTranslation(text, { sentenceThreshold: 100, maxChunkChars: 120 });
